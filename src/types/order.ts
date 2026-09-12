@@ -30,3 +30,13 @@ export interface Tracking {
     total_amount: number;
     created_at: string;
 }
+
+export interface OrderItemInput {
+    menu_item_id: number;
+    quantity: number;
+}
+
+export interface CreateOrderData {
+    branch_id: number;
+    items: OrderItemInput[];
+}
