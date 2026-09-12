@@ -84,3 +84,12 @@ export async function getOrderHistory(): Promise<Order[]> {
     return response.json();
 }
 
+
+export async function trackOrder(order_id: number): Promise<Tracking> {
+    const response = await fetch(`${API_URL}/orders/{orderId}/tracking`, {
+    
+        credentials: "include",
+    });
+
+    return response.json();
+}
