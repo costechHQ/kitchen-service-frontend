@@ -2,11 +2,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { signinUser } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth-store";
-
+import { useAuth } from "@/hooks/useAuth";
 
 
 export default function Signin() {
-    
+    const { loading } = useAuth();  
+
     const router = useRouter();
     const setUser = useAuthStore((state) => state.setUser);
 
@@ -35,6 +36,10 @@ export default function Signin() {
         }
         
     };
+
+    if (loading) {
+      return <p>Checking authentication...</p>;
+    }
 
     return (
         <div>

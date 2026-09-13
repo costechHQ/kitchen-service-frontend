@@ -29,12 +29,12 @@ export async function signinUser(data: SigninData) {
     return response;
 }
 
-export async function getCurrentUser(data: SigninData) {
-    const response = await fetch(`${API_URL}/users/me`, {
-        credentials: "include",
-    });
+export async function getCurrentUser() {
+  const response = await fetch(`${API_URL}/users/me`, {
+    credentials: "include",
+  });
 
-    return response;
+  return response;
 }
 
 export async function signoutUser() {

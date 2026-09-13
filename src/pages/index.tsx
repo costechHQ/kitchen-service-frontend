@@ -1,3 +1,3 @@
-export default function Staff() {
-  return <div>Staff page</div>;
+export default function Home() {
+  return <div>Home page</div>
 }
