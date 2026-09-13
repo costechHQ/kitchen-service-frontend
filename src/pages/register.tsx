@@ -7,10 +7,16 @@ export default function Register() {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   
+  
+const handleSubmit = async (event: React.FormEvent) => {
+      event.preventDefault();
 
-  
-    const handleSubmit = async () => {
+      setLoading(true);
+
+      try{
+
       const response = await registerUser({
         name,
         email,
@@ -18,12 +24,23 @@ export default function Register() {
         password
       });
 
+
       if (response.ok) {
-        alert("Registration successful!");
+        setMessage("Registration successful!");
+        setName("");
+        setEmail("");
+        setAddress("");
+        setPassword("");
       } else if (response.status === 409) {
-        alert("Email already registered.")
+        setMessage("Email already registered.")
       } else {
-        alert("Something went wrong. Please try again.");
+        setMessage("Something went wrong. Please try again.");
+      }
+
+      } catch (error) {
+        setMessage("Unable to connect to the server.")
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -31,6 +48,8 @@ export default function Register() {
     <div>
       <h1>Create an account </h1>
 
+      <form onSubmit={handleSubmit}>
+        
       <input 
       type="text"
       placeholder="Name"
@@ -55,15 +74,19 @@ export default function Register() {
       placeholder="password"
       value={password}
       onChange={(event) => setPassword(event.target.value)} />
-
+{/* 
       <p>Your name is: {name}</p>
       <p>Your email is: {email}</p> 
       <p>Your address is: {address}</p>
-      <p>Your password has been entered.</p>
+      <p>Your password has been entered.</p> */}
 
-      <button type="button" onClick={handleSubmit}>
-        Create account
+      {message && <p>{message}</p>}
+
+      <button type="submit" disabled={loading}>
+        {loading ? "Creating account..." : "Created account"}
       </button>
+
+      </form>
     </div>
 
   );
