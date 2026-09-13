@@ -1,19 +1,30 @@
 import { useState } from "react";
+import { registerUser } from "@/lib/api";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  
 
   
-    const handleSubmit = () => {
-      console.log({
+    const handleSubmit = async () => {
+      const response = await registerUser({
         name,
         email,
         address,
-        password,
+        password
       });
+
+      if (response.ok) {
+        alert("Registration successful!");
+      } else if (response.status === 409) {
+        alert("Email already registered.")
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     };
 
   return (
