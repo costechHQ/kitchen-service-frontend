@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { registerUser } from "@/lib/api";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -45,9 +51,16 @@ const handleSubmit = async (event: React.FormEvent) => {
     };
 
   return (
-    <div>
-      <h1>Create an account </h1>
+  
+  <div className="min-h-screen flex items-center justify-center px-4">
+  <Card className="w-full max-w-md">
+    <CardHeader>
+      <CardTitle className="text-center">
+        Create an account
+      </CardTitle>
+    </CardHeader>
 
+    <CardContent>
       <form onSubmit={handleSubmit}>
         
       <input 
@@ -85,9 +98,9 @@ const handleSubmit = async (event: React.FormEvent) => {
       <button type="submit" disabled={loading}>
         {loading ? "Creating account..." : "Created account"}
       </button>
-
-      </form>
-    </div>
-
-  );
+            </form>
+    </CardContent>
+  </Card>
+</div>
+);
 }
