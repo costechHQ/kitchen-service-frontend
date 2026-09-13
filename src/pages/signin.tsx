@@ -1,13 +1,39 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { signinUser } from "@/lib/api";
+import { useAuthStore } from "@/stores/auth-store";
+
+
 
 export default function Signin() {
+    
+    const router = useRouter();
+    const setUser = useAuthStore((state) => state.setUser);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-         console.log(email, password);
+
+        const response = await signinUser({
+            email,
+            password,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user);
+          setMessage("Sign in successful");
+          await router.push("/");
+
+        } else if (response.status === 401) {
+          setMessage("Invalid email or password");
+        } else {
+          setMessage("Something went wrong");
+        }
+        
     };
 
     return (
@@ -35,6 +61,8 @@ export default function Signin() {
             </button>
 
             </form>
+
+            {message && <p>{message}</p>}
             
         </div>
     );
