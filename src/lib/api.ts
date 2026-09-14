@@ -48,8 +48,6 @@ export async function signoutUser() {
 }
 
 
-
-
 export async function getMenu(): Promise<MenuResponse> {
     const response = await fetch(`${API_URL}/menu/`);
 
@@ -57,7 +55,7 @@ export async function getMenu(): Promise<MenuResponse> {
 }
 
 export async function getMenuItem(menuID: number) {
-    const response = await  fetch(`${API_URL}/menu/`);
+    const response = await  fetch(`${API_URL}/${menuID}`);
 
     return response.json();
 }
