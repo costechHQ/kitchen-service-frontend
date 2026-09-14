@@ -6,12 +6,17 @@ import MenuCard from "@/components/menu/MenuCard";
 export default function Home() {
   const [menu, setMenu] = useState<MenuResponse>({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadMenu() {
-      const data = await getMenu();
+      try {
+        const data = await getMenu();
 
-      setMenu(data);
+        setMenu(data);
+      } catch {
+        setError("Failed to load menu");
+      }
       setLoading(false);
     }
 
@@ -20,6 +25,10 @@ export default function Home() {
 
   if (loading) {
     return <p>Loading menu...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>
   }
 
   const branches = Object.values(menu);

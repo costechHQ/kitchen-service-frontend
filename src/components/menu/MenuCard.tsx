@@ -5,6 +5,9 @@ interface MenuCardProps {
 }
 
 export default function MenuCard({ item }: MenuCardProps) {
+    if (!item.is_active) {
+        return null;
+    }
     return (
         <div>
             <h3>{item.name}</h3>
