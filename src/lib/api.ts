@@ -23,6 +23,7 @@ export async function signinUser(data: SigninData) {
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(data),
     });
 

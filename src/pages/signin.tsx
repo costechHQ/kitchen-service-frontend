@@ -1,15 +1,21 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signinUser } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth-store";
 import { useAuth } from "@/hooks/useAuth";
 
 
 export default function Signin() {
-    const { loading } = useAuth();  
-
+    const { loading } = useAuth();
+    const user = useAuthStore((state) => state.user);
     const router = useRouter();
     const setUser = useAuthStore((state) => state.setUser);
+
+       useEffect(() => {
+      if (!loading && user) {
+        router.push("/");
+      }
+    }, [loading, user, router]);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
