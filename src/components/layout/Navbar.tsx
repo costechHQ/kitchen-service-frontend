@@ -1,11 +1,17 @@
 import { signoutUser } from "@/lib/api";
+import { useAuthStore } from "@/stores/auth-store"
+import { useRouter } from "next/router"; 
 
 export default function Navbar() {
+const router = useRouter();
+  const clearUser = useAuthStore((state) => state.clearUser);
+  
   const handleSignout = async () => {
     const response = await signoutUser();
 
     if (response.ok) {
-      console.log("Signed out successfully");
+      clearUser();
+      await router.push("/signin");
     }
   };
 
