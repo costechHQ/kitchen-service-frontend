@@ -1,3 +1,1 @@
-export default function Checkout() {
-  return <div>Checkout page</div>;
-}
+import { useCartStore } from "@/stores/cart-store";
