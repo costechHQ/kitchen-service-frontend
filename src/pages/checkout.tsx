@@ -5,7 +5,7 @@ export default function Checkout() {
   console.log("Cart items:", items);
 
   return (
-    <div>
+    <div
       <h1>My Cart</h1>
 
       {items.map((item) => (
